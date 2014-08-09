@@ -1,1 +1,1 @@
-angular.module('CountDown',[]);
+angular.module('CountDown', []);

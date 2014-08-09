@@ -1,6 +1,6 @@
-angular.module('CountDown').filter('dateUTC',function(){
+angular.module('CountDown').filter('dateUTC', function() {
   return function(date) {
-    if ( !date ) {
+    if (!date) {
       return;
     }
     return date.toUTCString();
