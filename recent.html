@@ -11,7 +11,6 @@ var x_latest = angular.module('MetaCPAN.Latest',['elasticsearch']);
 x_latest.service('client', function(esFactory) {
   return esFactory({
     host: 'http://api.metacpan.org',
-    keepAlive: false,
   });
 });
 x_latest.controller('Feed',function($scope,client,esFactory) {
@@ -34,7 +33,6 @@ x_latest.controller('Feed',function($scope,client,esFactory) {
     });
 });
     </script>
-    <link rel="stylesheet" href="css/main.css" />
   </head>
   <body ng-controller="Feed as f">
   <ul>
