@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="MetaCPAN.Latest">
+  <head>
+    <meta charset="UTF-8">
+    <title>Once-A-Week/Month/Day countdowns</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.17/angular.min.js"></script>
+    <script src="lib/elasticsearch.min.js"></script>
+    <script src="lib/elasticsearch.angular.min.js"></script>
+    <script>
+var x_latest = angular.module('MetaCPAN.Latest',['elasticsearch']);
+x_latest.service('client', function(esFactory) {
+  return esFactory({
+    host: 'http://api.metacpan.org',
+    keepAlive: false,
+  });
+});
+x_latest.controller('Feed',function($scope,client,esFactory) {
+    client.search({
+      index: 'v0',
+      scroll: '5m',
+      size: 10,
+      type: 'release',
+      fields: ['name','version','date'],
+      body: {
+        term: {
+          distribution: 'MooseX-Has-Sugar'
+        },
+        sort: {
+          'stat.mtime': 'desc'
+        }
+      }
+    }).then(function(resp){
+      $scope.releases = resp['_source'];
+    });
+});
+    </script>
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
+  <body ng-controller="Feed as f">
+  <ul>
+    <li ng-repeat="release in f.releases">{{release.name}} - {{release.version}} ( {{release.date}} )</li>
+  </ul>
+  </body>
+</html>
