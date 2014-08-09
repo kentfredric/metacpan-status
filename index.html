@@ -18,19 +18,19 @@
     <link rel="stylesheet" href="css/main.css" />
   </head>
   <body ng-controller="Ticker"><pre>
-    Now: {{time | date}}
+    <b>Now</b>: {{time | date}}
        : {{time | dateUTC }}
        
-    Monthly Deadline: {{monthly | date }}
+    <b>Monthly Deadline</b>: {{monthly | date }}
                       {{monthly | dateUTC }}
-           Remaining: {{monthly | interval | breakdown }} ( {{monthly | interval | seconds }} )
+           <b>Remaining</b>: <i>{{monthly | interval | breakdown }} ( {{monthly | interval | seconds }} )</i>
 
-    Weekly Deadline : {{weekly | date }}
+    <b>Weekly Deadline</b> : {{weekly | date }}
                       {{weekly | dateUTC }}
-           Remaining: {{weekly | interval | breakdown }} ( {{weekly | interval | seconds }} )
+           <b>Remaining</b>: <i>{{weekly | interval | breakdown }} ( {{weekly | interval | seconds }} )</i>
 
-    Daily Deadline  : {{daily | date }}
+    <b>Daily Deadline</b>  : {{daily | date }}
                     : {{daily | dateUTC }}
-           Remaining: {{daily | interval | breakdown }} ( {{daily | interval | seconds }} )
+           <b>Remaining</b>: <i>{{daily | interval | breakdown }} ( {{daily | interval | seconds }} )</i>
   </pre></body>
 </html>
