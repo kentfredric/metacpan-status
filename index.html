@@ -7,119 +7,14 @@
     <!--
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.17/angular-route.min.js"></script>
     -->
-    <script>
-angular.module('CountDown',[]);
-angular.module('CountDown').factory('deadlines',function() {
-
-  function now() {
-      return new Date(Date.now());
-  }
-  function zeroday() {
-      var ts = now();
-      ts.setUTCMilliseconds(0);
-      ts.setUTCSeconds(0);
-      ts.setUTCMinutes(0);
-      ts.setUTCHours(0);
-      return ts;
-  }
-
-  function monthly() {
-      var ts = zeroday();
-      ts.setUTCDate(1);
-      ts.setUTCMonth(ts.getUTCMonth() + 1);
-      return ts;
-  }
-  function weekly() {
-      var ts = zeroday();
-      ts.setUTCDate(ts.getUTCDate()+( 7 - ts.getUTCDay() ));
-      return ts;
-  }
-  function daily() {
-      var ts = zeroday();
-      ts.setUTCDate(ts.getUTCDate()+1);
-      return ts;
-  }
-  function interval(x){
-      return x.getTime() - now().getTime();
-  }
-  return {
-    now: now,
-    daily: daily,
-    weekly: weekly,
-    monthly: monthly,
-    interval: interval,
-  };
-});
-angular.module('CountDown').filter('date',function(){
-  return function(date) {
-    if ( !date ) {
-      return;
-    }
-    return date.toString();
-  };
-});
-angular.module('CountDown').filter('dateUTC',function(){
-  return function(date) {
-    if ( !date ) {
-      return;
-    }
-    return date.toUTCString();
-  };
-});
-angular.module('CountDown').filter('interval',['deadlines', function(deadlines){
-  return function(date) {
-    if (!date) {
-      return;
-    }
-    return deadlines.interval(date);
-  }
-}]);
-angular.module('CountDown').filter('breakdown',['deadlines', function(deadlines){
-  return function(interval) {
-    if (!interval) {
-      return;
-    }
-    if ( interval < 1000 ) { return 0 }
-    var ms = interval % 1000;
-    var seconds = (interval / 1000).toFixed(0);
-    if ( seconds < 60 ) {
-      return seconds + ' seconds';
-    }
-    var minutes = (seconds / 60).toFixed(1);
-    if ( minutes < 60 ){ 
-      return minutes + ' minutes';
-    }
-    var hours = (minutes/ 60).toFixed(1);
-    if ( hours < 24 ) {
-      return hours + ' hours';
-    }
-    var days = (hours/24).toFixed(1);
-    return days + ' days';
-  }
-}]);
-angular.module('CountDown').filter('seconds',['deadlines', function(deadlines){
-  return function(interval) {
-    if (!interval) {
-      return;
-    }
-    if ( interval < 1000 ) { return 0 }
-    return (interval / 1000).toFixed(1) + ' seconds';
-  }
-}]);
-
-
-angular.module('CountDown').controller('Ticker', ['$scope','$interval','deadlines',
-                                          function($scope,  $interval, d){
-
-      function updater() {
-        $scope.time =    d.now();
-        $scope.monthly = d.monthly();
-        $scope.weekly  = d.daily();
-        $scope.daily   = d.weekly();
-      }
-      $interval(updater,500);
-}]);
-    </script>
+    <script src="js/CountDown.js"></script>
+    <script src="js/CountDown/factory/deadlines.js"></script>
+    <script src="js/CountDown/controller/Ticker.js"></script>
+    <script src="js/CountDown/filter/interval.js"></script>
+    <script src="js/CountDown/filter/date.js"></script>
+    <script src="js/CountDown/filter/breakdown.js"></script>
+    <script src="js/CountDown/filter/dateUTC.js"></script>
+    <script src="js/CountDown/filter/seconds.js"></script>
     <link rel="stylesheet" href="css/main.css" />
   </head>
   <body ng-controller="Ticker"><pre>
