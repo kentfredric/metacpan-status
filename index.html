@@ -32,5 +32,14 @@
     <b>Daily Deadline</b>  : {{daily | date }}
                     : {{daily | dateUTC }}
            <b>Remaining</b>: <i>{{daily | interval | breakdown }} ( {{daily | interval | seconds }} )</i>
+
+    <b>CPAN Day Start</b>  : {{cpanday_start | date }}
+                    : {{cpanday_start | dateUTC }}
+           <b>Remaining</b>: <i>{{cpanday_start | interval | breakdown }} ( {{cpanday_start | interval | seconds }} )</i>
+
+    <b>CPAN Day End</b>    : {{cpanday_end | date }}
+                    : {{cpanday_end | dateUTC }}
+           <b>Remaining</b>: <i>{{cpanday_end | interval | breakdown }} ( {{cpanday_end | interval | seconds }} )</i>
+
   </pre></body>
 </html>

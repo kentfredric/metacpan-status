@@ -31,6 +31,27 @@ angular.module('CountDown').factory('deadlines', function() {
     return ts;
   }
 
+  function cpanday_start() {
+    var ts = zeroday();
+    ts.setUTCDate(16);
+    ts.setUTCMonth(7);
+    if (ts.getTime() < now().getTime()) {
+      ts.setUTCFullYear(ts.getUTCFullYear() + 1);
+    }
+    return ts;
+  }
+
+  function cpanday_end() {
+    var ts = zeroday();
+    ts.setUTCDate(17);
+    ts.setUTCMonth(7);
+    if (ts.getTime() < now().getTime()) {
+      ts.setUTCFullYear(ts.getUTCFullYear() + 1);
+    }
+    return ts;
+  }
+
+
   function interval(x) {
     return x.getTime() - now().getTime();
   }
@@ -40,5 +61,7 @@ angular.module('CountDown').factory('deadlines', function() {
     weekly: weekly,
     monthly: monthly,
     interval: interval,
+    cpanday_start: cpanday_start,
+    cpanday_end: cpanday_end
   };
 });

@@ -6,6 +6,9 @@ angular.module('CountDown').controller('Ticker', ['$scope', '$interval', 'deadli
       $scope.monthly = d.monthly();
       $scope.daily = d.daily();
       $scope.weekly = d.weekly();
+      $scope.cpanday_start = d.cpanday_start();
+      $scope.cpanday_end = d.cpanday_end();
+
     }
     $interval(updater, 500);
   }
