@@ -10,39 +10,25 @@
     <script src="js/CountDown.js"></script>
     <script src="js/CountDown/factory/deadlines.js"></script>
     <script src="js/CountDown/controller/Ticker.js"></script>
-    <script src="js/CountDown/filter/interval.js"></script>
-    <script src="js/CountDown/filter/date.js"></script>
-    <script src="js/CountDown/filter/breakdown.js"></script>
-    <script src="js/CountDown/filter/dateUTC.js"></script>
-    <script src="js/CountDown/filter/seconds.js"></script>
+    <script src="js/CountDown/directive/clock.js"></script>
+    <script src="js/CountDown/directive/timer.js"></script>
+
     <link rel="stylesheet" href="css/main.css" />
   </head>
-  <noscript><pre>
-  <b>This page requires JavaScript Enabled to See anything remotely interesting</b>
-  </pre></noscript>
-  <body ng-controller="Ticker"><pre>
-    <b>Now</b>: {{time | date}}
-       : {{time | dateUTC }}
-       
-    <b>Monthly Deadline</b>: {{monthly | date }}
-                      {{monthly | dateUTC }}
-           <b>Remaining</b>: <i>{{monthly | interval | breakdown }} ( {{monthly | interval | seconds }} )</i>
 
-    <b>Weekly Deadline</b> : {{weekly | date }}
-                      {{weekly | dateUTC }}
-           <b>Remaining</b>: <i>{{weekly | interval | breakdown }} ( {{weekly | interval | seconds }} )</i>
+  <body ng-controller="Ticker">
+    <noscript><pre>
+    <b>This page requires JavaScript Enabled to See anything remotely interesting</b>
+    </pre>
+    </noscript>
+    <clock label="Now" refresh="1000"></clock>
+    <timer label="Monthly Deadline" refresh="500" deadline="monthly"></timer>
+    <timer label="Weekly Deadline" refresh="500" deadline="weekly"></timer>
+    <timer label="Daily Deadline" refresh="500" deadline="daily"></timer>
+    <div id="cpan">
+      <timer label="CPAN Day Start" refresh="500" deadline="cpanday_start"></timer>
+      <timer label="CPAN Day End" refresh="500" deadline="cpanday_end"></timer>
+    </div>
+  </body>
 
-    <b>Daily Deadline</b>  : {{daily | date }}
-                    : {{daily | dateUTC }}
-           <b>Remaining</b>: <i>{{daily | interval | breakdown }} ( {{daily | interval | seconds }} )</i>
-
-    <b>CPAN Day Start</b>  : {{cpanday_start | date }}
-                    : {{cpanday_start | dateUTC }}
-           <b>Remaining</b>: <i>{{cpanday_start | interval | breakdown }} ( {{cpanday_start | interval | seconds }} )</i>
-
-    <b>CPAN Day End</b>    : {{cpanday_end | date }}
-                    : {{cpanday_end | dateUTC }}
-           <b>Remaining</b>: <i>{{cpanday_end | interval | breakdown }} ( {{cpanday_end | interval | seconds }} )</i>
-
-  </pre></body>
 </html>
