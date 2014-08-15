@@ -15,7 +15,7 @@ angular.module('CountDown').directive('timer', ['$interval', '$log',
       return (interval / 1000).toFixed(1) + ' seconds';
     }
 
-    function breakdown(interval) {
+    function breakdown(interval, precision) {
       if (!interval) {
         return;
       }
@@ -27,15 +27,15 @@ angular.module('CountDown').directive('timer', ['$interval', '$log',
       if (seconds < 60) {
         return seconds + ' seconds';
       }
-      var minutes = (seconds / 60).toFixed(1);
+      var minutes = (seconds / 60).toFixed(precision);
       if (minutes < 60) {
         return minutes + ' minutes';
       }
-      var hours = (minutes / 60).toFixed(1);
+      var hours = (minutes / 60).toFixed(precision);
       if (hours < 24) {
         return hours + ' hours';
       }
-      var days = (hours / 24).toFixed(1);
+      var days = (hours / 24).toFixed(precision);
       return days + ' days';
     }
 
@@ -52,6 +52,9 @@ angular.module('CountDown').directive('timer', ['$interval', '$log',
       if (!scope.deadline) {
         scope.deadline = x_now();
       }
+      if (!scope.precision) {
+        scope.precision = 1;
+      }
 
       scope.padding = (new Array(scope.label.length + 1).join(' '));
 
@@ -60,7 +63,7 @@ angular.module('CountDown').directive('timer', ['$interval', '$log',
         if (scope.deadline) {
           scope.interval = scope.deadline - now;
           scope.intervalSeconds = seconds(scope.interval);
-          scope.intervalBreakdown = breakdown(scope.interval);
+          scope.intervalBreakdown = breakdown(scope.interval, scope.precision);
         }
       }
 
@@ -96,7 +99,8 @@ angular.module('CountDown').directive('timer', ['$interval', '$log',
       scope: {
         label: '@',
         deadline: '=',
-        refresh: '@'
+        refresh: '@',
+        precision: '@'
       },
       link: link,
       templateUrl: 'partials/timer.html'
